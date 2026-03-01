@@ -1,0 +1,1245 @@
+---
+title: "Liquidity Transformation and Fragility in the US Banking Sector"
+subtitle: "Chen, Goldstein, Huang & Vashishtha — *Journal of Finance*"
+author:
+  - name: "PhD Seminar in Banking & Finance"
+date: today
+format:
+  revealjs:
+    theme: solarized
+    slide-number: true
+    transition: slide
+    chalkboard: true
+    smaller: true
+    scrollable: false
+    code-fold: true
+    margin: 0.08
+    linereach: 1.1
+    footer: "Chen, Goldstein, Huang & Vashishtha | Bank Fragility"
+---
+
+# Road Map {background-color="#2c3e50"}
+
+## What We Will Cover Today
+
+::: {.columns}
+::: {.column width="50%"}
+**Eight Parts**
+
+1. 🏦 **Motivation** — Why do banks run?
+2. 📐 **Theory I** — Diamond-Dybvig world
+3. 📐 **Theory II** — Global games fix
+4. 🔬 **Empirical Design** — Theory → predictions
+5. 📊 **Data & Measures** — What is liquidity mismatch?
+6. 📈 **Results** — What regressions say?
+7. 🛡️ **Deposit Insurance** — Does it help?
+8. ⚖️ **Critique & Extensions**
+:::
+::: {.column width="50%"}
+
+::: {.callout-note}
+## The Big Picture
+This paper closes a **40-year gap** between theory and evidence.
+
+Theory since Diamond-Dybvig (1983) says banks are *inherently fragile* due to liquidity mismatch.
+
+Until this paper, **no large-scale empirical evidence** linked mismatch to panic-driven withdrawals.
+:::
+
+:::
+:::
+
+# Part 1: Motivation {background-color="#2c3e50"}
+
+## What Does a Bank Actually Do?
+
+::: {.columns}
+::: {.column width="50%"}
+**The Core Business Model**
+
+Banks take **short-term, liquid liabilities** (deposits) and invest them in **long-term, illiquid assets** (loans, mortgages).
+
+This is called **Liquidity Transformation** — enormously valuable to society.
+
+::: {.callout-note}
+## Why It's Valuable
+- Savers get liquidity, money-like claims they can withdraw anytime
+- Borrowers get long-term funding for productive investment
+- Banks bridge the mismatch, creating economic value
+:::
+:::
+::: {.column width="50%"}
+
+```{=html}
+<div style="font-family:monospace; background:#f4f7fc; border:2px dashed #b0c4d8; border-radius:8px; padding:20px; font-size:0.65em; line-height:2;">
+BANK BALANCE SHEET<br>
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br>
+ASSETS &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; LIABILITIES<br>
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br>
+Long-term loans ←→ Demand deposits<br>
+Mortgages &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ←→ Short-term debt<br>
+Illiquid assets ←→ Liquid claims<br>
+<br>
+&nbsp;&nbsp;&nbsp;ILLIQUID &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; LIQUID<br>
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ⚠️ MISMATCH ⚠️
+</div>
+```
+
+::: {.callout-warning}
+## The Catch
+Banks cannot fully liquidate assets immediately. If everyone withdraws at once, the bank fails — **even if fundamentally solvent**.
+:::
+:::
+:::
+
+## Two Types of Bank Runs {.smaller style="font-size: 0.80em;"}
+
+::: {.columns}
+::: {.column width="50%"}
+**Type 1 — Fundamentals-Based**
+
+Depositors withdraw because the bank is genuinely in trouble: bad loans, losses, insolvency.
+
+*Rational response to bad news.*
+
+| Feature | Value |
+|---------|-------|
+| Trigger | Bad fundamentals |
+| Solvent banks at risk? | No |
+| Self-fulfilling? | No |
+| Policy fix? | Let it fail |
+:::
+::: {.column width="50%"}
+**Type 2 — Panic-Based (Self-Fulfilling)**
+
+Depositors withdraw *not* because the bank is insolvent, but because they **fear other depositors will withdraw first**.
+
+*Coordination failure.*
+
+| Feature | Value |
+|---------|-------|
+| Trigger | Fear of others |
+| Solvent banks at risk? | **Yes** |
+| Self-fulfilling? | **Yes** |
+| Policy fix? | Deposit insurance, LOLR |
+:::
+:::
+
+::: {.callout-important}
+## Diamond & Dybvig (1983)
+Even with a *perfectly good bank*, panic-based runs exist as an equilibrium. This is the key intellectual puzzle underpinning all modern banking regulation.
+:::
+
+## Why This Paper? The Empirical Gap {.smaller}
+
+::: {.columns}
+::: {.column width="55%"}
+
+[**40 Years of Theory Without Evidence**]{style="font-size:0.85em;"}
+
+::: {.incremental style="font-size:0.78em; line-height:1.3;"}
+- Diamond & Dybvig (1983) → foundational model of runs
+- Goldstein & Pauzner (2005) → global games, sharp predictions
+- Chen, Goldstein & Jiang (2010) → tested in mutual funds
+:::
+
+. . .
+
+[**Prior empirical work on banks:**]{style="font-size:0.82em; margin-top:0.2em;"}
+
+::: {style="font-size:0.76em; line-height:1.3; margin-top:-0.1em;"}
+- Gorton (1988): crises correlate with bad fundamentals → *concluded panic isn't important*
+- Goldstein (2013): **wrong** — panic *amplifies* fundamental responses, so sensitivity doesn't rule out panic
+:::
+
+:::
+::: {.column width="45%"}
+
+::: {.callout-important style="font-size:0.76em; padding:0.4em;"}
+**The Core Identification Problem**
+
+How do you distinguish *panic* from *fundamentals* when panic is itself triggered by bad fundamentals?
+:::
+
+. . .
+
+::: {.callout-note style="font-size:0.76em; margin-top:0.5em; padding:0.4em;"}
+**The Solution**
+
+Look at the **cross-section** of banks.
+
+If panic is real, banks *structurally more prone to panic* should show **stronger reactions to the same bad news**.
+:::
+
+:::
+:::
+
+# Part 2: Theory I — Diamond-Dybvig {background-color="#2c3e50"}
+
+## The Diamond-Dybvig Setup
+
+::: {.columns}
+::: {.column width="50%"}
+**A Three-Period World**
+
+A bank invests **\$1** at $t=0$ in a project:
+
+- Pays $R > 1$ at $t=2$ if held to maturity
+- Pays only $r_1 < 1$ if liquidated early at $t=1$ (fire-sale loss)
+
+**Two types of depositors:**
+
+- **Impatient** ($\lambda$ fraction): Must consume at $t=1$ — always withdraw early
+- **Patient** ($1-\lambda$ fraction): Can wait until $t=2$ — but *may* withdraw early if worried
+:::
+::: {.column width="50%"}
+**The Multiple Equilibria Problem**
+
+::: {.callout-note}
+## Good Equilibrium
+Patient depositors **wait**. Bank earns full return $R$. Everyone is better off.
+:::
+
+::: {.callout-warning}
+## Bad Equilibrium (Run)
+Patient depositors fear others will withdraw. All withdraw at $t=1$. Bank liquidates at fire-sale prices. Bank may fail.
+
+*Self-fulfilling panic.*
+:::
+
+. . .
+
+**Both equilibria exist.** Theory alone cannot tell you which will occur. We need more structure.
+:::
+:::
+
+## Strategic Complementarities: The Core Mechanism {.smaller}
+
+::: {.columns}
+::: {.column width="48%"}
+
+[**What Are Strategic Complementarities?**]{style="font-size:0.85em;"}
+
+[My payoff from withdrawing depends on **how many others withdraw**.]{style="font-size:0.78em;"}
+
+::: {.incremental style="font-size:0.75em; line-height:1.3; margin-top:0.1em;"}
+- If others run → fire-sale losses → less for remaining depositors → **I should also run**
+- Running is optimal *if I believe others will run*
+- Not running is optimal *if I believe others won't run*
+- Circular reasoning → multiple equilibria (DD) or unique threshold (GP)
+:::
+
+:::
+::: {.column width="52%"}
+
+[**How Mismatch Strengthens Complementarities:**]{style="font-size:0.82em;"}
+
+::: {style="font-size:0.73em; margin-top:-0.1em; line-height:1.25;"}
+| Bank Type | Urgency to Run |
+|-----------|----------------|
+| Low illiquid assets — can pay from liquid buffer | 🟢 Low |
+| High illiquid assets — fire-sale losses if others run | 🔴 High |
+| Low %Uninsured — runs stay small | 🟢 Low |
+| High %Uninsured — large coordinated run possible | 🔴 High |
+:::
+
+::: {.callout-note appearance="minimal" style="font-size:0.72em; margin-top:0.4em; padding:0.3em;"}
+More mismatch → stronger complementarities → easier to trigger a run
+:::
+
+:::
+:::
+
+# Part 3: Theory II — Global Games {background-color="#2c3e50"}
+
+## Goldstein & Pauzner (2005): The Fix
+
+::: {.columns}
+::: {.column width="55%"}
+**The Problem with Diamond-Dybvig**
+
+Multiple equilibria → the model cannot predict *when* runs occur. Not testable.
+
+**The Global Games Solution (Morris & Shin 2000)**
+
+Assume depositors receive **slightly noisy private signals** about bank performance $\theta$.
+
+With small noise, the multiple equilibria collapse into a **unique threshold equilibrium**:
+
+$$\text{Patient depositors run if signal} < P^*$$
+$$\text{Patient depositors wait if signal} \geq P^*$$
+
+$P^*$ is the **panic threshold** — pinned down by fundamentals and the structure of the game.
+:::
+::: {.column width="45%"}
+
+::: {.callout-note}
+## Why Noise Selects a Unique Equilibrium
+- Without noise: I face strategic uncertainty — what will *others* do?
+- With slightly noisy signals: I can reason about the distribution of others' beliefs
+- This "infection" of beliefs pins down unique behavior
+:::
+
+. . .
+
+::: {.callout-important}
+## Key Parameter
+$r_1$ = how much the bank promises to pay early withdrawers per dollar invested
+
+Higher $r_1$ → Higher $P^*$ → Bank is easier to run on
+:::
+:::
+:::
+
+## The Central Theoretical Prediction {.smaller style="font-size: 0.82em;"}
+
+::: {.columns}
+::: {.column width="42%"}
+**The Key Comparative Static**
+
+$$\frac{\partial P^*}{\partial r_1} > 0$$
+
+As liquidity mismatch increases ($r_1 \uparrow$), the run threshold rises ($P^* \uparrow$).
+
+**Intuition:** If the bank has promised a lot of liquid claims, depositors know a run *would be very damaging* — fear of others running is more rational. Strategic complementarities are stronger.
+
+**Reading the diagram:**
+
+- Below $\underline{P}$: Bank insolvent → *fundamental run*
+- Between $\underline{P}$ and $P^*$: Bank solvent but panic occurs
+- Above $P^*$: No run — only impatient depositors withdraw
+:::
+
+::: {.column width="58%"}
+
+```{=html}
+<svg viewBox="0 0 580 230" xmlns="http://www.w3.org/2000/svg"
+     style="width:100%; display:block; margin:4px auto 0 auto; font-family: Georgia, serif;">
+
+  <!-- Title -->
+  <text x="290" y="18" text-anchor="middle" font-size="12.5" fill="#222">Panel A: Illustration of Run Regions</text>
+
+  <!-- Main horizontal axis -->
+  <line x1="90" y1="95" x2="555" y2="95" stroke="#111" stroke-width="1.8"/>
+  <polygon points="555,95 545,90 545,100" fill="#111"/>
+  <text x="564" y="100" font-size="12" fill="#222" font-style="italic">P</text>
+
+  <!-- Dashed vertical lines -->
+  <line x1="180" y1="45" x2="180" y2="170" stroke="#555" stroke-width="1.1" stroke-dasharray="4,4"/>
+  <line x1="340" y1="45" x2="340" y2="170" stroke="#555" stroke-width="1.1" stroke-dasharray="4,4"/>
+  <line x1="455" y1="45" x2="455" y2="170" stroke="#555" stroke-width="1.1" stroke-dasharray="4,4"/>
+
+  <!-- Tick marks -->
+  <line x1="180" y1="92" x2="180" y2="98" stroke="#111" stroke-width="1.4"/>
+  <line x1="340" y1="92" x2="340" y2="98" stroke="#111" stroke-width="1.4"/>
+  <line x1="455" y1="92" x2="455" y2="98" stroke="#111" stroke-width="1.4"/>
+
+  <!-- P_low underlined -->
+  <text x="180" y="113" text-anchor="middle" font-size="12" fill="#111" font-style="italic">P</text>
+  <line x1="174" y1="115" x2="186" y2="115" stroke="#111" stroke-width="1.2"/>
+
+  <!-- P* -->
+  <text x="340" y="113" text-anchor="middle" font-size="12" fill="#111" font-style="italic">P*</text>
+
+  <!-- P-bar (overlined) -->
+  <text x="455" y="113" text-anchor="middle" font-size="12" fill="#111" font-style="italic">P</text>
+  <line x1="449" y1="101" x2="461" y2="101" stroke="#111" stroke-width="1.2"/>
+
+  <!-- Region labels above axis -->
+  <text x="130" y="62" text-anchor="middle" font-size="11" fill="#444">Fundamental</text>
+  <text x="130" y="75" text-anchor="middle" font-size="11" fill="#444">run</text>
+  <text x="258" y="68" text-anchor="middle" font-size="11" fill="#444">Panic run</text>
+  <text x="505" y="68" text-anchor="middle" font-size="11" fill="#444">No bank run</text>
+
+  <!-- flow = -λ label -->
+  <text x="85" y="143" text-anchor="end" font-size="11.5" fill="#111" font-style="italic">flow = −λ</text>
+  <!-- flow = -1 label -->
+  <text x="85" y="188" text-anchor="end" font-size="11.5" fill="#111" font-style="italic">flow = −1</text>
+
+  <!-- flow = -λ line: dashed P_low→P*, solid P*→end -->
+  <line x1="180" y1="139" x2="340" y2="139" stroke="#1a3a8c" stroke-width="2.2" stroke-dasharray="6,5"/>
+  <line x1="340" y1="139" x2="542" y2="139" stroke="#1a3a8c" stroke-width="2.8"/>
+
+  <!-- flow = -1 line: solid from left to P* -->
+  <line x1="90"  y1="184" x2="340" y2="184" stroke="#1a3a8c" stroke-width="2.8"/>
+
+  <!-- Vertical dashed step at P* -->
+  <line x1="340" y1="139" x2="340" y2="184" stroke="#aaa" stroke-width="1.1" stroke-dasharray="4,3"/>
+
+</svg>
+```
+
+:::
+:::
+
+## The Formal Sensitivity Derivation {.smaller style="font-size: 0.78em;"}
+
+::: {.columns}
+::: {.column width="50%"}
+**Setting Up the Derivation**
+
+Consider banks with mismatch $r_1$, run threshold $P^*(r_1)$, and performance pdf $f(P)$.
+
+A small negative shock $-\Delta P$ triggers runs at banks where $P$ was just above $P^*(r_1)$.
+
+**Aggregate change in flows:**
+$$\Delta \text{FLOW}(r_1) = -[F(P^*+\Delta P) - F(P^*)](1-\lambda)$$
+
+Dividing by $-\Delta P$ and taking limits:
+$$AvgFPS(r_1) = f(P^*(r_1)) \cdot (1-\lambda)$$
+:::
+::: {.column width="50%"}
+**Taking the Derivative w.r.t. Mismatch**
+
+$$\frac{\partial \, AvgFPS(r_1)}{\partial r_1} = (1-\lambda) \cdot f'(P^*) \cdot \frac{\partial P^*}{\partial r_1}$$
+
+This is **positive** if and only if:
+
+1. $\frac{\partial P^*}{\partial r_1} > 0$ ← From GP theory ✓
+2. $f'(P^*) > 0$ ← Thresholds are in the *increasing* part of the ROA distribution
+
+::: {.callout-note}
+## Condition 2 is Empirically Verified
+Figure 2 of the paper shows ROA is roughly bell-shaped. Uninsured deposits become sensitive to ROA only *below the median* — where density is still rising. So $P^* <$ median ROA and $f'(P^*) > 0$ ✓
+:::
+:::
+:::
+
+# Part 4: Theory → Empirics {background-color="#2c3e50"}
+
+## Translating Theory into Testable Predictions
+
+::: {.columns}
+::: {.column width="50%"}
+**The Problem**
+
+We cannot directly observe $P^*$ (the run threshold).
+
+We cannot observe whether a run is "panic" vs. "fundamentals."
+
+**The Solution**
+
+Use cross-sectional variation in **liquidity mismatch** ($r_1$) to test the comparative static $\frac{\partial P^*}{\partial r_1} > 0$.
+
+**The Logic**
+
+::: {.incremental}
+- Banks with more mismatch → higher $P^*$
+- Same bad performance → more likely to breach the higher $P^*$
+- → Stronger deposit outflows *in expectation*
+:::
+:::
+::: {.column width="50%"}
+
+::: {.callout-note}
+## Prediction 1: Sensitivity
+The flow-performance sensitivity of **uninsured deposits** should be **higher** for banks with more liquidity mismatch.
+
+$$\frac{\partial^2 \Delta Dep^U}{\partial \text{ROA} \cdot \partial r_1} > 0$$
+:::
+
+::: {.callout-note}
+## Prediction 2: Levels
+Conditional on **below-median performance**, banks with more liquidity mismatch should have **lower** (more negative) uninsured deposit flows.
+
+$$\Delta Dep^U \big|_{\text{low ROA, high } r_1} \;<\; \Delta Dep^U \big|_{\text{low ROA, low } r_1}$$
+:::
+:::
+:::
+
+## Why Focus on Uninsured Deposits?
+
+::: {.columns}
+::: {.column width="50%"}
+**Insured Depositors Don't Panic**
+
+Insured depositors (up to FDIC limit) have no incentive to run — the government guarantees their money.
+
+Strategic complementarities only matter for **uninsured depositors**.
+
+::: {.callout-note}
+Uninsured depositors face a prisoner's dilemma: if others run before them, they may lose money. This is the panic incentive.
+:::
+:::
+::: {.column width="50%"}
+**This Gives Us a Built-In Falsification Test**
+
+| | Uninsured | Insured |
+|--|--|--|
+| Sensitive to ROA? | **Yes** | No |
+| Mismatch × ROA effect? | **Yes** | No (or opposite) |
+
+. . .
+
+::: {.callout-important}
+## The Placebo Logic
+If results were the same for insured and uninsured deposits, we'd worry it's just bank quality, not panic.
+
+Finding **opposite** results for insured deposits confirms the panic mechanism is specific to those who bear default risk.
+:::
+:::
+:::
+
+# Part 5: Data & Measurement {background-color="#2c3e50"}
+
+## Sample Overview
+
+::: {.columns}
+::: {.column width="50%"}
+**Data Source**
+
+US Call Reports (via WRDS)
+
+- Quarterly income statements and balance sheets for **all** US commercial banks
+- Mandatory regulatory filings → no selection bias
+
+**Sample Restrictions**
+
+::: {.incremental}
+- Total assets ≥ \$100 million
+- Exclude quarters with >10% asset growth (M&A)
+- Winsorize at 1st and 99th percentiles
+:::
+:::
+::: {.column width="50%"}
+
+```{=html}
+<div style="display:flex; gap:16px; flex-wrap:wrap; margin-top:10px;">
+  <div style="background:#2c3e50; color:white; border-radius:8px; padding:18px 22px; text-align:center; flex:1; min-width:100px;">
+    <div style="font-size:1.9em; font-weight:bold; color:#f39c12;">287K</div>
+    <div style="font-size:0.8em; color:#bdc3c7;">Bank-Quarter Obs.</div>
+  </div>
+  <div style="background:#2c3e50; color:white; border-radius:8px; padding:18px 22px; text-align:center; flex:1; min-width:100px;">
+    <div style="font-size:1.9em; font-weight:bold; color:#f39c12;">8,153</div>
+    <div style="font-size:0.8em; color:#bdc3c7;">Unique Banks</div>
+  </div>
+  <div style="background:#2c3e50; color:white; border-radius:8px; padding:18px 22px; text-align:center; flex:1; min-width:100px;">
+    <div style="font-size:2em; font-weight:bold; color:#f39c12;">22 yrs</div>
+    <div style="font-size:0.8em; color:#bdc3c7;">1994–2016</div>
+  </div>
+</div>
+```
+
+| Variable | Mean | SD | p50 |
+|----------|------|----|-----|
+| ROA (ann. %) | 1.00 | 0.90 | 1.08 |
+| Asset Illiquidity | 0.07 | 0.14 | 0.08 |
+| %Uninsured (%) | 33.9 | 14.6 | 31.4 |
+| ΔDep Uninsured (%) | 2.12 | 9.92 | 2.16 |
+| ΔDep Insured (%) | 2.79 | 9.25 | 1.32 |
+
+:::
+:::
+
+## Measuring Liquidity Mismatch — Asset Side
+
+::: {.columns}
+::: {.column width="55%"}
+**Measure 1: Asset Illiquidity** *(Berger & Bouwman 2009)*
+
+Classify all bank assets into three categories:
+
+| Asset Type | Examples | Weight |
+|------------|----------|--------|
+| Illiquid | Commercial loans, RE loans | **+½** |
+| Semi-liquid | Consumer loans | 0 |
+| Liquid | Cash, securities, trading assets | **−½** |
+
+$$\text{Asset Illiquidity} = \frac{\sum w_j \cdot A_j}{\text{Total Assets}}$$
+
+Higher value → bank invests more in illiquid assets relative to size
+:::
+::: {.column width="45%"}
+
+::: {.callout-note}
+## Why This Measure?
+If forced to liquidate quickly, illiquid assets sell at steep fire-sale discounts. One depositor's withdrawal imposes costs on others — **that is the source of strategic complementarities on the asset side**.
+:::
+
+. . .
+
+::: {.callout-warning}
+## Why Not Berger-Bouwman's Liability Measure?
+Their measure treats banks with *less equity* as creating more liquidity — this confounds **claim priority** with strategic complementarities and is not suitable here.
+:::
+:::
+:::
+
+## Measuring Liquidity Mismatch — Liability Side
+
+::: {.columns}
+::: {.column width="55%"}
+**Measure 2: %Uninsured**
+
+$$\text{\%Uninsured} = \frac{\text{Uninsured Deposits}}{\text{Total Deposits}}$$
+
+Averaged over the **prior three years** (to avoid endogeneity with recent outflows).
+
+Captures the fraction of deposit funding that is **at-risk for panic**.
+
+::: {.callout-note}
+## Why Three-Year Average?
+Using a short-window %Uninsured could itself reflect recent panic-based outflows. A three-year backward average measures the *structural* liability composition.
+:::
+:::
+::: {.column width="45%"}
+
+::: {.callout-important}
+## The Strategic Complementarity Logic
+An uninsured depositor's incentive to run depends not just on asset quality, but on **how many fellow depositors are also uninsured**.
+
+If most depositors are insured → a run stays small → panic less rational.
+
+If most depositors are uninsured → a large coordinated run is possible → panic more rational.
+:::
+
+::: {.callout-warning}
+## Why Not Bai et al. (2018) LMI?
+LMI uses market-based liquidity — which *itself deteriorates during panic*. The measure would be endogenous to the runs we're trying to study.
+:::
+:::
+:::
+
+## Measuring Flows and Performance {.smaller style="font-size: 0.80em;"}
+
+::: {.columns}
+::: {.column width="50%"}
+**Uninsured Deposit Flows**
+
+$$\Delta Dep^U_{it} = \frac{\text{Uninsured Dep}_{t+1} - \text{Uninsured Dep}_{t-1}}{\text{Assets}_{t-1}} \times 200$$
+
+Measured over *two quarters* following the performance report.
+
+Scaled by **lagged total assets**, not by lagged deposits.
+
+::: {.callout-note}
+## Why Scale by Total Assets?
+A 10% loss of uninsured deposits means very different things if uninsured deposits fund 80% vs. 20% of assets. Scaling by assets captures economic magnitude relative to the bank's total size.
+:::
+:::
+::: {.column width="50%"}
+**Performance Measure: ROA**
+
+$$\text{ROA}_{t-1} = \frac{\text{Net Income}_{t-1}}{\text{Assets}_{t-2}} \times 4$$
+
+Key summary measure watched by investors and regulators.
+
+::: {.callout-note}
+## Why a Two-Quarter Lag?
+- Call Reports filed ~30 days after quarter end
+- Post-earnings-announcement drift literature: investors respond with a delay of up to one quarter
+- Two-quarter window captures the full adjustment period
+:::
+
+**Controls include:** Capital ratio, wholesale funding, deposit share, size, loan composition, ROE volatility, deposit rates, Fed funds rate, market returns.
+:::
+:::
+
+# Part 6: Empirical Results {background-color="#2c3e50"}
+
+## First Look: Semi-Parametric Evidence {.smaller}
+
+::: {.columns}
+::: {.column width="36%"}
+
+[**Robinson (1988) Estimator:**]{style="font-size:0.82em;"}
+
+::: {style="font-size:0.75em; margin-top:-0.1em;"}
+$$\Delta Dep = f(\text{ROA}_{t-1}) + \gamma' X_{t-1} + \epsilon$$
+$f(\cdot)$ nonparametric — no functional form imposed.
+:::
+
+[**Panel A — Insured vs. Uninsured:**]{style="font-size:0.80em; margin-top:0.3em;"}
+
+::: {style="font-size:0.73em; line-height:1.3; margin-top:-0.1em;"}
+- Insured: **flat** everywhere 
+- Uninsured: flat above median, **steep decline** below
+- → $P^* <$ median ROA; $f'(P^*) > 0$ 
+:::
+
+[**Panels B & C — By Mismatch Tercile:**]{style="font-size:0.80em; margin-top:0.3em;"}
+
+::: {style="font-size:0.73em; line-height:1.3; margin-top:-0.1em;"}
+- Above median: high/low mismatch **similar**
+- Below median: high mismatch → **much steeper** outflows
+- → Consistent with $\frac{\partial P^*}{\partial r_1} > 0$ 
+:::
+
+::: {.callout-note appearance="minimal" style="font-size:0.70em; margin-top:0.4em; padding:0.3em;"}
+Panic thresholds lie below median ROA — high liquidity transformation amplifies fragility precisely when fundamentals deteriorate.
+:::
+
+:::
+::: {.column width="64%"}
+
+![](figure3.png){width="100%" fig-align="center"}
+
+:::
+:::
+
+## Main Specification: Sensitivity Test {.smaller}
+
+::: {.columns}
+::: {.column width="52%"}
+
+[**Equation (3):**]{style="font-size:0.85em;"}
+
+::: {style="font-size:0.78em; margin-top:-0.2em;"}
+$$\begin{aligned}
+\Delta Dep^U_{it} = &\; \alpha_i + \beta_0 \text{ROA}_{it-1} \\
+&+ \beta_1 (\widetilde{MM}_{it-1} \times \text{ROA}_{it-1}) \\
+&+ \beta_2 \widetilde{MM}_{it-1} + \gamma' X_{it-1} + \varepsilon_{it}
+\end{aligned}$$
+
+$\widetilde{MM}$ = demeaned mismatch measure
+:::
+
+[**Test:** Is $\hat{\beta}_1 > 0$?]{style="font-size:0.82em; margin-top:0.2em;"}
+
+::: {style="font-size:0.78em; line-height:1.3; margin-top:-0.1em;"}
+- $\beta_0$ = sensitivity for the *average* bank
+- $\beta_1$ = extra sensitivity per unit of mismatch
+:::
+
+:::
+::: {.column width="48%"}
+
+[**Results — Asset Illiquidity:**]{style="font-size:0.82em;"}
+
+::: {style="font-size:0.75em; margin-top:-0.2em;"}
+| Specification | ROA × AI |
+|---------------|----------|
+| No bank FE | 2.721** |
+| **With bank FE** | **3.668\*\*\*** |
+| Economic magnitude | **+34% per SD** |
+:::
+
+[**Results — %Uninsured:**]{style="font-size:0.82em; margin-top:0.3em;"}
+
+::: {style="font-size:0.75em; margin-top:-0.2em;"}
+| Specification | ROA × %Uns |
+|---------------|------------|
+| No bank FE | 0.039*** |
+| **With bank FE** | **0.041\*\*\*** |
+| Economic magnitude | **+43% per SD** |
+:::
+
+::: {.callout-note appearance="minimal" style="font-size:0.72em; margin-top:0.4em; padding:0.3em;"}
+1 SD more mismatch → **34–43% higher** flow-performance sensitivity
+:::
+
+:::
+:::
+
+## Main Specification: Level Test {.smaller}
+
+::: {.columns}
+::: {.column width="52%"}
+
+[**Equation (5):**]{style="font-size:0.85em;"}
+
+::: {style="font-size:0.78em; margin-top:-0.2em;"}
+$$\begin{aligned}
+\Delta Dep^U_{it} = &\; \alpha_i + \beta_0 \text{ROA}_{it-1} \\
+&+ \beta_1 (MM_{it-1} \times \mathbf{1}_{\text{ROA}<\text{Med}}) \\
+&+ \beta_2 \mathbf{1}_{\text{ROA}<\text{Med}} + \gamma' X_{it-1} + \varepsilon_{it}
+\end{aligned}$$
+
+$\mathbf{1}_{\text{ROA}<\text{Med}}$ = indicator for below-median performance
+:::
+
+[**Test:** Is $\hat{\beta}_1 < 0$?]{style="font-size:0.82em; margin-top:0.2em;"}
+
+::: {style="font-size:0.78em; line-height:1.3; margin-top:-0.1em;"}
+At any given bad performance level, higher mismatch → higher $P^*$ → more likely panic-based outflows have already occurred.
+:::
+
+[**Figure 4 Pattern (deciles of ROA):**]{style="font-size:0.82em; margin-top:0.3em;"}
+
+::: {.incremental style="font-size:0.75em; line-height:1.3; margin-top:-0.1em;"}
+- Coefficients near **zero** for all top 5 deciles
+- Monotonically **negative** for bottom 5 deciles
+- Statistically significant for bottom 2 deciles
+:::
+
+:::
+::: {.column width="48%"}
+
+[**Results:**]{style="font-size:0.82em;"}
+
+::: {style="font-size:0.75em; margin-top:-0.2em;"}
+| Mismatch Measure | Coeff $\beta_1$ |
+|------------------|----------------|
+| Asset Illiquidity | **−5.281\*\*\*** |
+| %Uninsured | **−0.049\*\*\*** |
+:::
+
+[**Economic Magnitude:**]{style="font-size:0.82em; margin-top:0.3em;"}
+
+::: {style="font-size:0.75em; margin-top:-0.2em;"}
+| Mismatch Measure | Effect Size |
+|------------------|-------------|
+| Asset Illiquidity | 35% of mean flow |
+| %Uninsured | 34% of mean flow |
+:::
+
+::: {.callout-note appearance="minimal" style="font-size:0.72em; margin-top:0.4em; padding:0.3em;"}
+1 SD more mismatch → **34–35% greater outflows** when performance drops below median
+:::
+
+:::
+:::
+
+## Ruling Out the Information Story: Peer Capital Test {.smaller style="font-size: 0.80em;"}
+
+::: {.columns}
+::: {.column width="50%"}
+**The Concern**
+
+Maybe banks with more illiquid assets have *more informative ROA*. A given drop in ROA signals a larger decline in true asset value → stronger withdrawal response reflects **rational fundamentals updating**, not panic.
+
+**The Peer Capital Test (Table V)**
+
+Granja et al. (2017): distressed banks sell assets to local peers. When peer banks have **less capital**, fire-sale discounts are steeper → panic is more rational.
+
+::: {.callout-note}
+If results reflect panic, the effect of Asset Illiquidity should be **stronger when peer capital is low**.
+
+There is no reason peer bank capital should change how informative *your* bank's ROA is.
+:::
+:::
+::: {.column width="50%"}
+
+**Results — Sensitivity Specification:**
+
+| Peer Capital Tercile | ROA × AI |
+|--|--|
+| Bottom (scarce capital) | **5.535\*\*\*** |
+| Middle | 3.266** |
+| Top (ample capital) | 1.611*** |
+| **Diff (top − bottom)** | **−3.924\*** |
+
+**Results — Level Specification:**
+
+| Peer Capital Tercile | AI × 1(ROA<Med) |
+|--|--|
+| Bottom | −7.630*** |
+| Middle | −5.924*** |
+| Top | −2.941*** |
+
+::: {.callout-important}
+Effect is **>3× larger** when peer capital is scarce. Inconsistent with an information story.
+:::
+:::
+:::
+
+## The Cleanest Test: Matched Sample {.smaller style="font-size: 0.80em;"}
+
+::: {.columns}
+::: {.column width="50%"}
+**Propensity Score Matching for %Uninsured**
+
+Match banks in top vs. bottom tercile of %Uninsured, conditioning on:
+
+- Asset Illiquidity
+- Real estate loan share, C&I loan share
+- ROA, capital ratio, size, and other bank characteristics
+
+**Goal:** After matching, the only difference between the two groups is the *liability-side* structure. Asset-composition concern is completely neutralized.
+:::
+::: {.column width="50%"}
+**Covariate Balance After Matching:**
+
+| Variable | Low %Uns | High %Uns | t-stat |
+|----------|---------|----------|--------|
+| ROA | 0.970 | 0.977 | 0.14 |
+| Asset Illiquidity | 0.077 | 0.077 | −0.10 |
+| C&I Loans | 0.152 | 0.153 | 0.33 |
+| Capital Ratio | 0.099 | 0.099 | 0.11 |
+
+All differences insignificant ✓
+
+**Results on Matched Sample:**
+
+- **Sensitivity:** High %Uninsured → **3× higher** flow-performance sensitivity (1.626 vs. 0.490)
+- **Levels:** High %Uninsured → −2.039 extra outflow below median = **96% of sample mean flow**
+:::
+:::
+
+# Part 7: Deposit Insurance {background-color="#2c3e50"}
+
+## Does Deposit Insurance Eliminate the Problem? {.smaller}
+
+::: {.columns}
+::: {.column width="50%"}
+
+[**The Theory**]{style="font-size:0.85em;"}
+
+::: {style="font-size:0.78em; line-height:1.3;"}
+Deposit insurance (introduced 1934) was designed precisely to prevent panic. If banks fully replace lost uninsured deposits with insured deposits → no incentive to run.
+:::
+
+[**What Actually Happens (Table VII):**]{style="font-size:0.82em; margin-top:0.3em;"}
+
+::: {.incremental style="font-size:0.75em; line-height:1.3; margin-top:-0.1em;"}
+- Uninsured deposit flows become more negative
+- **Insured flows move in opposite direction** — banks attract insured deposits by raising rates
+- Core deposit rates and large-time deposit rates raised more aggressively
+:::
+
+:::
+::: {.column width="50%"}
+
+[**Is the Substitution Complete?**]{style="font-size:0.82em;"}
+
+::: {style="font-size:0.72em; margin-top:-0.1em;"}
+| | Asset Illiquidity | %Uninsured |
+|---|---|---|
+| Uninsured flow | −3.668*** | −0.041*** |
+| Insured offset | +2.234* | +0.055*** |
+| **Net (total)** | **+1.531*** | **−0.010** |
+| **Substitution** | **Incomplete** | **Incomplete** |
+:::
+
+. . .
+
+::: {.callout-warning appearance="minimal" style="font-size:0.72em; margin-top:0.4em; padding:0.3em;"}
+**The Deeper Point:** Deposit insurance doesn't eliminate panic — it **changes the form of the cost**.
+
+- Without insurance: fire sales → possible failure
+- With insurance: higher rates → FDIC fees → reduced profitability
+
+Substitution merely changes *who bears the cost*.
+:::
+
+:::
+:::
+
+## Systemic vs. Idiosyncratic Shocks {.smaller style="font-size: 0.80em;"}
+
+::: {.columns}
+::: {.column width="50%"}
+**Why Systematic Shocks Are Different**
+
+When the *entire industry* is in distress:
+
+::: {.incremental}
+- Asset fire sales are steeper — fewer healthy buyers (Shleifer & Vishny 1992)
+- Interbank borrowing freezes (Liu 2016)
+- Banks cannot help each other
+:::
+
+. . .
+
+This **strengthens strategic complementarities** — even more reason to run before others.
+
+**Performance Decomposition:**
+
+$$\text{ROA}_{it} = \underbrace{\overline{\text{ROA}}_t}_{\text{Systematic}} + \underbrace{(\text{ROA}_{it} - \overline{\text{ROA}}_t)}_{\text{Idiosyncratic}}$$
+:::
+::: {.column width="50%"}
+**Results (Table VIII, Panel A):**
+
+| Interaction | Asset Illiq | %Uninsured |
+|--|--|--|
+| Mismatch × ROA_Systematic | **11.682** | **0.160** |
+| Mismatch × ROA_Idiosyncratic | 1.581 | 0.020 |
+| **Ratio** | **~7×** | **~8×** |
+
+::: {.callout-important}
+## Key Finding
+Effect of mismatch on fragility is **7–8× larger** for systematic vs. idiosyncratic shocks.
+
+This strongly supports the panic channel: when everyone is troubled, fire-sale externalities are largest and coordination failure is most likely.
+:::
+:::
+:::
+
+## The 2008 Crisis as a Laboratory {.smaller}
+
+::: {.columns}
+::: {.column width="50%"}
+
+[**Difference-in-Differences Design**]{style="font-size:0.85em;"}
+
+::: {style="font-size:0.78em; margin-top:-0.2em;"}
+$$\begin{aligned}
+Y_{it} = &\; \alpha_i + \beta_t + \gamma_1 (MM_i \times Crisis_t) \\
+&+ \sum_j \delta_j (BankChar_j \times Crisis_t) + \epsilon_{it}
+\end{aligned}$$
+:::
+
+::: {.incremental style="font-size:0.75em; line-height:1.3; margin-top:-0.1em;"}
+- $Crisis_t = 1$ for 2007Q3–2009Q2
+- $MM_i$ measured **before the crisis** (avoids bad-control problem)
+- Compares banks with different pre-crisis mismatch during vs. before crisis
+- Unexpected shock → close to exogenous variation
+:::
+
+:::
+::: {.column width="50%"}
+
+[**Results (Asset Illiquidity, Table IX Panel A):**]{style="font-size:0.82em;"}
+
+::: {style="font-size:0.73em; margin-top:-0.1em;"}
+| Outcome | Coeff |
+|---------|-------|
+| Uninsured Deposit Flow | **−10.406\*\*\*** |
+| Insured Deposit Flow | −0.736 (n.s.) |
+| Total Deposit Flow | **−11.570\*\*\*** |
+| Log Core Deposit Rate | +0.201*** |
+| **Loan Growth** | **−20.776\*\*\*** |
+| **Credit Commitments** | **−8.766\*\*\*** |
+:::
+
+::: {.callout-important appearance="minimal" style="font-size:0.72em; margin-top:0.4em; padding:0.3em;"}
+1 SD more pre-crisis Asset Illiquidity → **2.8% worse loan growth** during crisis (vs. 4.5% average)
+:::
+
+:::
+:::
+# Part 8: Critical Evaluation {background-color="#2c3e50"}
+
+## What the Paper Establishes {.smaller}
+
+::: {.columns}
+::: {.column width="48%"}
+
+[**Five Main Contributions:**]{style="font-size:0.85em;"}
+
+::: {.incremental style="font-size:0.75em; line-height:1.3; margin-top:-0.1em;"}
+1. **First large-scale evidence** linking liquidity mismatch to panic-driven withdrawals — 22 years, 8,000+ banks
+2. **Empirically confirms the GP mechanism** — run threshold increases with mismatch
+3. **Distinguishes panic from fundamentals** through cross-sectional design
+4. **Documents deposit insurance limitations** — substitution is partial and costly
+5. **Quantifies systemic amplification** — crisis effects 7–8× larger for systematic shocks
+:::
+
+:::
+::: {.column width="52%"}
+
+[**What Each Test Establishes:**]{style="font-size:0.82em;"}
+
+::: {style="font-size:0.72em; margin-top:-0.1em; line-height:1.3;"}
+| Test | What It Shows |
+|------|---------------|
+| Sensitivity | Steeper slope for high mismatch |
+| Levels | More outflows at same bad ROA |
+| Peer capital | Panic, not information channel |
+| Matched sample | Cleanest liability-side test |
+:::
+
+::: {style="font-size:0.72em; margin-top:0.2em; line-height:1.3;"}
+| Test | What It Shows |
+|------|---------------|
+| Ins. vs. Unins. | Insurance reduces but doesn't eliminate |
+| Systematic shocks | Complementarities strengthen in downturns |
+| 2008 Crisis DiD | Real lending consequences of mismatch |
+:::
+
+:::
+:::
+## SVB (2023) — Out-of-Sample Confirmation
+
+::: {.columns}
+::: {.column width="55%"}
+**SVB Had All the Risk Factors at Maximum Intensity**
+
+::: {.incremental}
+- **~94% uninsured deposits** — vs. ~34% industry average in the paper's sample
+- **Massive unrealized bond losses** — rising rates destroyed mark-to-market asset values
+- **Concentrated depositor base** — VC-backed startups highly correlated
+- **Social media coordination** — run organized over Twitter in hours
+:::
+
+. . .
+
+Jiang et al. (2023) analyzed SVB through exactly this lens: extreme %Uninsured → extreme strategic complementarities → run despite technical solvency.
+:::
+::: {.column width="45%"}
+
+::: {.callout-important}
+## The Paper's Prescience
+The authors note this paper was written *before* the March 2023 episode.
+
+SVB is the mechanism running at maximum intensity: the highest possible %Uninsured, highly correlated depositors, and a systematic shock (Fed rate hikes).
+
+The paper **quantified** the mechanism. SVB **demonstrated** what it looks like when all the dials are turned to maximum.
+:::
+:::
+:::
+
+## Possible Criticisms {.smaller style="font-size: 0.78em;"}
+
+::: {.columns}
+::: {.column width="50%"}
+**Measurement Concerns**
+
+::: {.incremental}
+- **%Uninsured is endogenous** — banks perceived as risky may attract fewer uninsured depositors (reverse causality). Addressed partially by three-year averaging.
+- **Asset Illiquidity may proxy unobserved quality** — riskier banks may take on illiquid loans *and* be fragile for non-panic reasons.
+- **Quarterly data misses the fastest runs** — bank runs can happen in days (cf. SVB 2023). Only persistent outflows are captured.
+- **No depositor-level data** — net flows mix entry, exit, and rate-seeking behavior. Cannot isolate true panic decisions.
+:::
+:::
+::: {.column width="50%"}
+**Identification Concerns**
+
+::: {.incremental}
+- **ROA informativeness** — the peer capital and matched-sample tests address this, but residual concerns remain about correlated unobservables.
+- **Customer relationships as confound** — banks with high mismatch might also have weaker depositor relationships and lower switching costs, not panic per se.
+- **Mismatch is not exogenous** — banks choose their liability structure. High %Uninsured may reflect risk appetite rather than structural fragility.
+- **General equilibrium effects ignored** — the paper studies individual banks. Systemic costs of fragility across the whole sector are not captured.
+:::
+:::
+:::
+
+## Extensions and Future Research {.smaller style="font-size: 0.78em;"}
+
+::: {.columns}
+::: {.column width="50%"}
+**Open Empirical Questions**
+
+::: {.incremental}
+- **Digital-era runs** — SVB ran out in ~48 hours via Twitter and mobile banking. How does technology change the mismatch-fragility mapping? Quarterly data won't suffice.
+- **Depositor heterogeneity** — concentrated institutional depositors (e.g., VC-backed startups) may be highly correlated in withdrawal decisions, amplifying panic beyond what the symmetric-depositor model predicts.
+- **International evidence** — US-only sample. Does the mechanism hold across different deposit insurance regimes and regulatory environments?
+:::
+:::
+::: {.column width="50%"}
+**Open Theory Questions**
+
+::: {.incremental}
+- **Endogenous mismatch** — banks choose $r_1$. What is the equilibrium level of mismatch when fragility is a cost? Can regulation improve outcomes?
+- **Social media and public signals** — the GP model uses *private* noisy signals. What happens when depositors coordinate publicly via social media?
+- **Optimal deposit insurance** — Dávila & Goldstein (2023) provide theory. This paper provides empirical calibration targets. Can we estimate the optimal coverage limit?
+:::
+:::
+:::
+
+
+
+# Conclusion {background-color="#2c3e50"}
+
+## The Big Picture: Theory Meets Evidence{.smaller}
+
+::: {.columns}
+::: {.column width="55%"}
+
+[**A 40-Year Journey**]{style="font-size:0.85em;"}
+
+::: {.incremental style="font-size:0.78em; line-height:1.3; margin-top:-0.1em;"}
+- **Diamond & Dybvig (1983)** told us *why* banks run — liquidity transformation creates fragility
+- **Goldstein & Pauzner (2005)** told us *when* they run — the threshold increases with mismatch
+- **Chen, Goldstein, Huang & Vashishtha** showed us *that they really do* — first large-scale evidence
+:::
+
+. . .
+
+::: {.callout-note}
+"Our results are consistent with the theoretical predictions of Goldstein and Pauzner (2005). As in their model, we show that fundamentals are important for explaining bank runs, but in addition, an element of panic amplifies withdrawals due to the bank's liquidity creation."
+:::
+:::
+::: {.column width="45%"}
+
+```{=html}
+<div style="display:flex; flex-direction:column; gap:14px; margin-top:10px;">
+  <div style="background:#2c3e50; color:white; border-radius:8px; padding:16px 20px; text-align:center;">
+    <div style="font-size:2em; font-weight:bold; color:#f39c12;">+34–43%</div>
+    <div style="font-size:0.8em; color:#bdc3c7;">Higher flow-performance sensitivity per SD of mismatch</div>
+  </div>
+  <div style="background:#2c3e50; color:white; border-radius:8px; padding:16px 20px; text-align:center;">
+    <div style="font-size:2em; font-weight:bold; color:#f39c12;">7–8×</div>
+    <div style="font-size:0.8em; color:#bdc3c7;">Larger effect for systematic vs. idiosyncratic shocks</div>
+  </div>
+  <div style="background:#2c3e50; color:white; border-radius:8px; padding:16px 20px; text-align:center;">
+    <div style="font-size:2em; font-weight:bold; color:#f39c12;">−2.8%</div>
+    <div style="font-size:0.8em; color:#bdc3c7;">Loan growth per SD of mismatch during 2008 crisis</div>
+  </div>
+</div>
+```
+:::
+:::
+
+## Key Takeaways {.smaller}
+
+::: {.columns}
+::: {.column width="50%"}
+
+[**Methodological Lessons**]{style="font-size:0.82em;"}
+
+::: {.incremental style="font-size:0.73em; line-height:1.25; margin-top:-0.1em;"}
+1. **Theory → Empirics:** Derive *testable predictions* from theory, not just correlations. The GP model gave them the interaction term to test.
+2. **Multiple tests:** One regression proves little. Convergence across many designs is compelling.
+3. **Falsification:** Insured deposits as a placebo — if the story were wrong, both groups would look the same.
+4. **Matched sample:** When worried about confounds, match on the confound.
+5. **Cross-sectional identification:** Use structural variation (mismatch) to identify mechanisms when you can't randomize.
+:::
+
+:::
+::: {.column width="50%"}
+
+[**Substantive Lessons**]{style="font-size:0.82em;"}
+
+::: {.incremental style="font-size:0.73em; line-height:1.25; margin-top:-0.1em;"}
+1. **Panic is real** and quantifiable — not just a theoretical curiosity.
+2. **Liquidity mismatch is the mechanism** — asset-side illiquidity and liability-side uninsured deposits contribute independently.
+3. **Deposit insurance helps but doesn't solve** — it changes the form of the cost.
+4. **Systematic shocks are disproportionately dangerous** — 7–8× more damaging in a systemic crisis.
+5. **Theory and empirics are complements** — this paper would be impossible without GP (2005), and GP was an untested conjecture without this paper.
+:::
+
+:::
+:::
+## Discussion Questions
+
+::: {.columns}
+::: {.column width="50%"}
+**Theoretical**
+
+1. Could you extend the GP model to allow *endogenous* mismatch choice? What would determine the equilibrium level?
+
+2. How would predictions change if depositors could observe each other's withdrawal decisions in real time via social media?
+
+3. With concentrated large depositors (institutional), does the global games uniqueness result still hold?
+:::
+::: {.column width="50%"}
+**Empirical**
+
+4. How would you design a study to capture high-frequency bank runs using daily data? What identification challenges arise?
+
+5. Could you apply this framework to non-bank intermediaries — life insurers, money market funds, ETFs? What would the analogous "liquidity mismatch" variable be?
+
+6. How would you test whether the SVB collapse fits the GP framework using daily deposit data now becoming available?
+:::
+:::
+
+## References {.smaller style="font-size: 0.72em;"}
+
+**Core Papers:**
+
+- Diamond & Dybvig (1983) — "Bank Runs, Deposit Insurance, and Liquidity" — *JPE*
+- Morris & Shin (2000) — "Rethinking Multiple Equilibria" — *NBER Macro Annual*
+- Goldstein & Pauzner (2005) — "Demand Deposit Contracts and the Probability of Bank Runs" — *JF*
+- Chen, Goldstein & Jiang (2010) — "Payoff Complementarities and Financial Fragility" — *JFE*
+- Berger & Bouwman (2009) — "Bank Liquidity Creation" — *RFS*
+
+**On SVB and Recent Crises:**
+
+- Jiang et al. (2023) — "Monetary Tightening and U.S. Bank Fragility in 2023" — *NBER WP*
+- Goldstein (2013) — "Empirical Literature on Financial Crises: Fundamentals vs. Panic" — survey chapter
+
+**Policy Implications:**
+
+- Dávila & Goldstein (2023) — "Optimal Deposit Insurance" — *JPE*
+- Keister (2016) — "Bailouts and Financial Fragility" — *RES*
+
+## {background-color="#2c3e50"}
+
+```{=html}
+<div style="display:flex; flex-direction:column; align-items:center; justify-content:center; height:70vh; text-align:center; color:white;">
+  <div style="font-size:2.8em; font-weight:bold; letter-spacing:2px; margin-bottom:0.4em;">🙏 Thank You</div>
+  <div style="font-size:1em; color:#bdc3c7; margin-top:0.6em;">Questions & Discussion</div>
+</div>
+```
